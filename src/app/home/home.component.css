@@ -1,0 +1,35 @@
+html,
+body,
+.cover{
+    height: 100%;
+}
+
+.cover{
+    background-image: url('src/assets/img/anise-aroma-art-bazaar-277253.jpg') top left no-repeat;
+    background-size: auto;
+    display: table;
+    width: 100%;
+    padding: 0 20%;
+    box-shadow: rgba(0, 0, 100, #000);
+}
+
+.cover-text {
+    text-align: center;
+    color: red;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.cover-text h1 {
+    margin: 0;
+    font-size: 50px;
+}
+
+
+
+
+.location1{
+position: relative;
+width: 100px;
+}
+
