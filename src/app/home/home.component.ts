@@ -3,7 +3,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationService } from '../location.service';
 import { LocationHttpService } from '../location-http.service';
-import { findReadVarNames } from '@angular/compiler/src/output/output_ast';
+import { Observable } from "rxjs/Observable";
+import { data } from 'jquery';
+import { error } from 'protractor';
+import { resolve } from 'dns';
+
+
+//convert Promise to Observable
+import 'rxjs/add/observable/fromPromise';
 
 
 
@@ -14,10 +21,13 @@ import { findReadVarNames } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./home.component.css']
 })
 
+
 //simple class
+
 export class HomeComponent implements OnInit ,OnDestroy {
 
-  
+  public location_suggestions_current = []
+
   public location_suggestions = [
     {
         "entity_type": "city",
@@ -56,101 +66,63 @@ export class HomeComponent implements OnInit ,OnDestroy {
 
 ]
 
-  
-
   constructor(public locationService:LocationService, public locationHttpService:LocationHttpService) { 
     console.log("Home component constructor called")
   }
 
+  // public baseUrl = 'https://developers.zomato.com/api/v2.1/geocode?'
 
-  public userLocation : any
-
-  public showPosition : any
-
-  public currentLatitude :any
-
-  public currentLongitude :any
-
-  public currentLocation: any
-
-  public nearbyRest: any
-
-  public final_lat: any
-
-  public final_lng: any
-
-
-  //service call
-
-  // findMe(): any{
-  //   this.locationHttpService.findMe().subscribe(
-
-  //     data =>{
-  //       console.log(data) 
-  //     },
-  //     error =>{
-  //       console.log("showing error message");
-  //       console.log(error.errorMessage)
-      
-  //     }  
-
-
-  //   )
-    //this.locationHttpService.nearByRestaurent();
-    // console.log(loc.currentLatitude)
-    // console.log(loc.currentLongitude)
+  findMe():any{
+  
+    //userLocation called using service
+    // this.locationService.userLocation().then(position=>{
+    // console.log(`Latitude: ${position.lat} ,Longitude:${position.lng} `)
 
     
+    // let places = this.locationService.nearbyUserRestaurent();
 
-    //subscribe the observable part from response to get nearby restaurent
-    // this.locationHttpService.nearByRestaurent().subscribe(
+    // console.log(places);
+    
+    
 
-    //   data =>{
-    //     console.log(data) 
-    //   },
-    //   error =>{
-    //     console.log("showing error message");
-    //     console.log(error.errorMessage)
+
+    // this.locationService.nearbyUserRestaurent().subscribe()
+
       
-    //   }  
-      
-    //   )
 
-  // }
-  
+  }
+    //nearbyUserRestaurent called using service location.service
+    //getting an observable
+    //console.log(this.locationService.nearbyUserRestaurent())
+
+    
+    
   ngOnInit(): void { 
     console.log("ng on init called")
 
+    // console.log(this.locationService.nearbyUserRestaurent())
 
-    this.locationHttpService.getPosition().then(pos=>
-      {
-         console.log(`Positon: ${pos.lng} ${pos.lat}`);
+    // const subscription = Observable.fromPromise(
+    //   this.locationService.nearbyUserRestaurent()
+    // )
 
-         
-        this.final_lat = pos.lat;
-        this.final_lng = pos.lng;
+    // subscription.subscribe(
+    //   data=>{
+    //     console.log(data)
+    //   },
+    //   error=>{
+    //     console.log(error)
+    //   }
+    // )
+  
+    const subscription = Observable.fromPromise(
+      this.locationService.nearbyres()
+    )
 
-        
-      });
-
-      console.log("starting jqweqwhekqwenqw eqwew Second call")
-      console.log(this.final_lat)
-      console.log(this.final_lng)
-    // console.log(nearbyRest)
-    //calling the service method to find current user lcation in the component
-    const nearbyRest = this.locationHttpService.nearByRestaurent(this.final_lat,this.final_lng).subscribe(
-
-      
-
-      data =>{
-        console.log(data) 
-      },
-      error =>{
-        console.log("showing error message");
-        console.log(error.errorMessage)
-      
-      }  
-
+    subscription.subscribe(
+      data=>{
+        console.log(data);
+      }
     )
     
   }
