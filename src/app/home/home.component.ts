@@ -4,7 +4,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationService } from '../location.service';
 import { LocationHttpService } from '../location-http.service';
 import { Observable } from "rxjs/Observable";
-import { data } from 'jquery';
+import { data, map } from 'jquery';
 import { error } from 'protractor';
 import { resolve } from 'dns';
 
@@ -25,6 +25,8 @@ import 'rxjs/add/observable/fromPromise';
 //simple class
 
 export class HomeComponent implements OnInit ,OnDestroy {
+
+ 
 
   public location_suggestions_current = []
 
@@ -74,57 +76,26 @@ export class HomeComponent implements OnInit ,OnDestroy {
 
   findMe():any{
   
-    //userLocation called using service
-    // this.locationService.userLocation().then(position=>{
-    // console.log(`Latitude: ${position.lat} ,Longitude:${position.lng} `)
-
-    
-    // let places = this.locationService.nearbyUserRestaurent();
-
-    // console.log(places);
-    
-    
-
-
-    // this.locationService.nearbyUserRestaurent().subscribe()
-
-      
+   
 
   }
-    //nearbyUserRestaurent called using service location.service
-    //getting an observable
-    //console.log(this.locationService.nearbyUserRestaurent())
-
-    
-    
+        
+  
   ngOnInit(): void { 
     console.log("ng on init called")
+    // this.locationService.userLocation().then(position =>{
+    //   console.log(`Latitude: ${position.lat} ,Longitude:${position.lng}`)
+    // })
+    // //console.log(this.locationService.nearbyres())
 
-    // console.log(this.locationService.nearbyUserRestaurent())
-
-    // const subscription = Observable.fromPromise(
-    //   this.locationService.nearbyUserRestaurent()
-    // )
-
-    // subscription.subscribe(
-    //   data=>{
+    // console.log(this.locationService.userLocation().subscribe(
+    //   data =>{
     //     console.log(data)
-    //   },
-    //   error=>{
-    //     console.log(error)
     //   }
-    // )
-  
-    const subscription = Observable.fromPromise(
-      this.locationService.nearbyres()
-    )
+    // ));
 
-    subscription.subscribe(
-      data=>{
-        console.log(data);
-      }
-    )
-    
+
+    this.locationService.nearbyres1()
   }
 
 
