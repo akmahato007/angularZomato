@@ -11,12 +11,14 @@ import { catchError, retry } from 'rxjs/operators';
 
 //import observable related code
 import { Observable }  from "rxjs/Observable";
-import 'rxjs/add/operator/toPromise'
+import 'rxjs/add/operator/map'
 import { promise } from 'protractor';
 import { data } from 'jquery';
 import { rejects } from 'assert';
 import { from } from 'rxjs';
 import { resolve } from 'dns';
+import { Variable } from '@angular/compiler/src/render3/r3_ast';
+import { ArrayType } from '@angular/compiler';
 
 
 
@@ -139,7 +141,35 @@ public apikey = '949248f347bc088f93d633d9d84c3341'
     console.log(this.latlong());
   }
       
-  
+  public userLocationResolveAfter2Seconds(): any {
+    return new Promise((resolve , reject) => {
+      setTimeout(() => {
+        navigator.geolocation.getCurrentPosition(resp => {
+
+          resolve([resp.coords.latitude, resp.coords.longitude])
+
+        },
+        err => {
+          reject(err);
+        });
+
+      }, 2000);
+    });
+  }
+
+  async addWithAsync()  {
+    let position = <ArrayType>await this.userLocationResolveAfter2Seconds();
+    console.log(position);
+    console.log(`Latitude: ${position[0]} ,Longitude:${position[1]}`)
+    let fullUrl =  `${this.baseUrl}lat=${position[0]}&lon=${position[1]}`
+    console.log(fullUrl) 
+    await this._http.get(fullUrl, {
+      headers : {"user-key" : "949248f347bc088f93d633d9d84c3341"}
+    }).map(data=>{
+      return data;
+    })
+}
+
 
 
 
@@ -159,6 +189,7 @@ public nearbyres() : Observable<any>{
   return res;
 }
     
+
 
    
 }

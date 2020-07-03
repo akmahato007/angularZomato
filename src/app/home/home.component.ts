@@ -74,9 +74,10 @@ export class HomeComponent implements OnInit ,OnDestroy {
 
   // public baseUrl = 'https://developers.zomato.com/api/v2.1/geocode?'
 
-  findMe():any{
+   async findMe(){
   
-   
+    let res =  await this.locationService.addWithAsync()
+    console.log(res);
 
   }
         
@@ -95,7 +96,10 @@ export class HomeComponent implements OnInit ,OnDestroy {
     // ));
 
 
-    this.locationService.nearbyres1()
+    
+
+
+
   }
 
 
