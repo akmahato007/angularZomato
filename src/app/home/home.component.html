@@ -1,39 +1,42 @@
-<p>home works!</p>
-
 <div class="container" style="text-align:center">
-    <div class="row" style="text-align:center" *ngIf="location_suggestions.length>0">
-      <div class="col-md-12" style="font-size:22px">All Restaurents </div>
-      <br><br><br><br>
-    </div>
-    <div class="row" style="text-align:center" *ngIf="location_suggestions.length>0">
-      <div *ngFor="let location_suggestion of location_suggestions" class="col-md-4">
-  
-        <div class="panel panel-default">
-          <div class="panel-heading">{{location_suggestion.title | uppercase}}</div>
-          <div class="panel-body">
-           
-              <p>{{location_suggestion.city_name}}</p>
-          </div>
-          <div class="panel-footer">Posted on {{location_suggestion.country_name}}
-          <br/><br/><a [routerLink]="['/location_suggestion',location_suggestion.entity_id]" class="btn btn-primary" >Read</a>
-          
-          </div>
-          
-        </div>
-  
-        <br/>
-      </div>
-  
-    </div>
-  
+  <div class="row" style="text-align:center" *ngIf="nearby_loc.length>0">
+    <div class="col-md-12" style="font-size:22px">All Restaurents </div>
+    <br><br><br><br>
   </div>
+  <div class="row" style="text-align:center" *ngIf="nearby_loc.length>0">
+    <div *ngFor="let nearby_loc_iterate of nearby_loc" class="col-md-12">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">{{nearby_loc_iterate.restaurant.name | uppercase}}</div>
+        <div class="panel-body" [ngStyle]="{'background-color': '#FFFACD'}">
+         
+          <div class="row"  style="text-align:center" *ngIf="nearby_loc_iterate.restaurant.featured_image !=null
+           && nearby_loc_iterate.restaurant.featured_image !=''; else elseBlock">
+            <img src={{nearby_loc_iterate.restaurant.featured_image}} alt="thumbnail" class="img-thumbnail"
+            style="width: 200px">
+          </div>
+          <ng-template #elseBlock>No Image Available</ng-template>
+        </div>
+        <div class="panel-footer">{{nearby_loc_iterate.restaurant.location.address}}
+        <br/><br/><a href = {{nearby_loc_iterate.restaurant.menu_url}} target="_blank" class="btn btn-primary" >Read Menu</a>
+        
+        </div>
+        
+      </div>
+
+      <br/>
+    </div>
+
+  </div>
+
+</div>
 
 <!-- code for auto detect the location -->
 
 <div class="container" style="text-align: center">
-  <div class="row" style="text-align: center">
-     <button (click)="findMe()">Auto Detect</button>
-  </div>
+<div class="row" style="text-align: center">
+   <button (click)="findMe()">Let's Find a Restaurent NearBy.. </button>
+</div>
 </div>
 
 

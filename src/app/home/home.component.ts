@@ -4,15 +4,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationService } from '../location.service';
 import { LocationHttpService } from '../location-http.service';
 import { Observable } from "rxjs/Observable";
-import { data, map } from 'jquery';
+import { data, map, getJSON } from 'jquery';
 import { error } from 'protractor';
 import { resolve } from 'dns';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 
 //convert Promise to Observable
 import 'rxjs/add/observable/fromPromise';
 
-
+    
 
 //decorator - eanbles class to become part of framework
 @Component({
@@ -26,80 +27,45 @@ import 'rxjs/add/observable/fromPromise';
 
 export class HomeComponent implements OnInit ,OnDestroy {
 
- 
-
   public location_suggestions_current = []
-
-  public location_suggestions = [
-    {
-        "entity_type": "city",
-        "entity_id": 2,
-        "title": "Kolkata",
-        "latitude": 22.572645999999999,
-        "longitude": 88.363894999999999,
-        "city_id": 2,
-        "city_name": "Kolkata",
-        "country_id": 1,
-        "country_name": "India"
-    },
-
-    {
-      "entity_type": "zone",
-      "entity_id": 5200,
-      "title": "West Bangalore, Bangalore",
-      "latitude": 13.004780999999999,
-      "longitude": 77.569029,
-      "city_id": 4,
-      "city_name": "Bengaluru",
-      "country_id": 1,
-      "country_name": "India"
-    },
-    {
-      "entity_type": "landmark",
-      "entity_id": 224965,
-      "title": "United States Highway, Reno",
-      "latitude": 38.970100000000002,
-      "longitude": -119.93519999999999,
-      "city_id": 976,
-      "city_name": "Reno",
-      "country_id": 216,
-      "country_name": "United States"
-    }
-
-]
+  public final_res;
+  public nearby_loc =[];
 
   constructor(public locationService:LocationService, public locationHttpService:LocationHttpService) { 
     console.log("Home component constructor called")
   }
 
-  // public baseUrl = 'https://developers.zomato.com/api/v2.1/geocode?'
-
-   async findMe(){
+  public baseUrl = 'https://developers.zomato.com/api/v2.1/geocode?'
   
-    let res =  await this.locationService.addWithAsync()
-    console.log(res);
+  // public completed()
+  // {
+  //   this.nearby_loc = this.final_res.nearby_restaurants;
+  //   console.log(this.nearby_loc)
+  // }
 
+    async findMe(){
+    let final_res;
+    let a = (await this.locationService.addWithAsync()).subscribe(
+      data => {
+        this.final_res =  data;
+      },
+      error =>{
+        console.log("error")
+        
+      },
+      // completed => { 
+      //   this.completed()
+      // }
+    )  
   }
+
+
+
+  
         
   
   ngOnInit(): void { 
     console.log("ng on init called")
-    // this.locationService.userLocation().then(position =>{
-    //   console.log(`Latitude: ${position.lat} ,Longitude:${position.lng}`)
-    // })
-    // //console.log(this.locationService.nearbyres())
-
-    // console.log(this.locationService.userLocation().subscribe(
-    //   data =>{
-    //     console.log(data)
-    //   }
-    // ));
-
-
-    
-
-
-
   }
 
 

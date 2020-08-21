@@ -20,7 +20,7 @@ import { ErrorViewComponent } from './error-view/error-view.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LocationService } from './location.service';
 import { LocationHttpService } from './location-http.service';
-
+import {FormsModule} from '@angular/forms'; 
 
 //decorators - what is executing
 @NgModule({
@@ -35,6 +35,7 @@ import { LocationHttpService } from './location-http.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
 
     //Router module forRoot method to declare possible routes in application
     RouterModule.forRoot([

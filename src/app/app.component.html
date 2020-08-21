@@ -1,42 +1,220 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-    <div class="container">
-       <div class="row header">
-         <div class="col-md-12">
-           <a style="color:white;">{{title}}</a>
-         </div>
-       </div>
-       <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            
-          </div>
-      
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li><a [routerLink]="['/home']">Home</a></li>
-              <li><a [routerLink]="['/detail-view']">Details-View</a></li>
-              <li><a [routerLink]="['/error-view']">Error-view</a></li>
-              
-            </ul>
-          
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
-        
+
+<!--code for home page -->
+
+<!-- navbar  -->
+<!-- Login  -->
+
+
+
+
+
+<input type="text" id="email" class="form-control" [(ngModel)]="email" placeholder="Email" required autofocus>
+
+<p>{{email}}</p>
+<input type="text" id="password" class="form-control" [(ngModel)]="password" placeholder="Password" required autofocus>
+
+<button (click)="signIn()">SignIn</button>
+
+<head>
+  <meta name="viewport" content="width=device-width ,initial-scale=1.0, user-scalable=no">
+</head>
+
+
+
+
+
+
+
+
+<!-- <nav class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ref="index.html">Zomato Eats</a>
     </div>
-    
-    <br/>
 
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a [routerLink]="['/home']">Home</a></li>
+        <li><a [routerLink]="['/about-us']">About Us</a></li>
+        <li><a [routerLink]="['/contact']">Contact</a></li>
+      </ul>
+    </div>
 
-    <!-- core part of angular router -->
-   <router-outlet></router-outlet>
+  </div>
+</nav> -->
+
+<!-- cover with image background -->
+ 
+<div class="cover">
+  <div class="cover-text">
+    <h1>ZOMATO</h1>
+    <p class="lead">Let&rsquo;s get you the best food in <span>Location</span></p>
+    <button class="btn btn-default btn-lg" (click)="findMe()">Lets find you a nearby restaurent..</button>
+  </div>
 </div>
+
+ SECTIONING 
+<section class="testimonials">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <blockquote>
+          &ldquo; Some quote here &rdquo;
+        </blockquote>
+        <cite>~ A happy customer</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+ your nearby restaurents
+<section id="nearbyResaturents" *ngIf="nearby_loc.length>0">
+  <div class="container">
+    <h2> Your Nearby Restaurents</h2>
+    <div class="row">
+
+      
+     if user_nearby restaurent is greater than 0  
+<div class="responsive">
+  <div class="restaurents" *ngFor="let nearby_loc_iterate of nearby_loc">
+    <div class="col-sm-4">
+        <div *ngIf="nearby_loc_iterate.restaurant.featured_image !=null
+        && nearby_loc_iterate.restaurant.featured_image !=''; else elseBlock">
+          <a href={{nearby_loc_iterate.restaurant.menu_url}} target="_blank">
+            <img src="{{nearby_loc_iterate.restaurant.featured_image}}" alt="restaurant-image" width="400" height="200">
+          </a>
+        </div>
+        <ng-template #elseBlock>
+          <a href={{nearby_loc_iterate.restaurant.menu_url}} target="_blank">
+            <img src="../assets/img/no_preview.jpg" alt="restaurant-image" width="400" height="200">
+          </a>
+        </ng-template>
+      <div><h4 class="lead">{{nearby_loc_iterate.restaurant.name | uppercase}}</h4></div>
+    </div>
+  </div>
+</div>
+
+
+
+      
+      <div *ngFor="let nearby_loc_iterate of nearby_loc">
+        <div class="clearfix" ng-if="$index % 3 == 0">
+        <div class="col-sm-4">
+          <div class="panel-heading" role="button">
+            <h2>{{nearby_loc_iterate.restaurant.name | uppercase}}</h2>
+          </div>
+
+              <div class="panel-body" target="_blank">
+                <div class="row" style="text-align:center" *ngIf="nearby_loc_iterate.restaurant.featured_image !=null
+                && nearby_loc_iterate.restaurant.featured_image !=''; else elseBlock">
+                  <a href={{nearby_loc_iterate.restaurant.menu_url}} target="_blank">
+                    <img src="{{nearby_loc_iterate.restaurant.featured_image}}" alt="thumbnail" class="img-thumbnail"
+                      style="width: 90%">
+                  </a>
+                </div>
+
+                <ng-template #elseBlock>
+                  <a href={{nearby_loc_iterate.restaurant.menu_url}} target="_blank">
+                    <img src="../assets/img/no_preview.jpg" alt="no image available">
+                  </a>
+                </ng-template>
+              </div>
+
+
+              <div class="panel-footer lead">{{nearby_loc_iterate.restaurant.location.address}}
+                 <a href={{nearby_loc_iterate.restaurant.menu_url}} target="_blank" class="btn btn-primary">Read Menu</a> 
+              </div>
+          
+            </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section id="why-us">
+  <h2>Why Zomato Eats?</h2>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <h3>Asiatic</h3>
+        <p>Lorem, ipsum dolor sit amet consectetur
+          adipisicing elit. Voluptatem suscipit
+          delectus eos natus ea possimus excepturi
+          reiciendis, illo reprehenderit esse sapiente
+          aut iure soluta, consectetur ipsum iusto saepe eligendi iste.
+        </p>
+      </div>
+
+      <div class="col-sm-4">
+        <h3>Ready Made</h3>
+        <p>Lorem, ipsum dolor sit amet consectetur
+          adipisicing elit. Voluptatem suscipit
+          delectus eos natus ea possimus excepturi
+          reiciendis, illo reprehenderit esse sapiente
+          aut iure soluta, consectetur ipsum iusto saepe eligendi iste.
+        </p>
+      </div>
+
+      <div class="col-sm-4">
+        <h3>Small badges</h3>
+        <p>Lorem, ipsum dolor sit amet consectetur
+          adipisicing elit. Voluptatem suscipit
+          delectus eos natus ea possimus excepturi
+          reiciendis, illo reprehenderit esse sapiente
+          aut iure soluta, consectetur ipsum iusto saepe eligendi iste.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id='signup'>
+  <div class="container">
+    <h2>Find out more about Us in newsletter</h2>
+    <p class="lead">We will send you real paper in email.No emails</p>
+
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <form>
+          <div class="input-group">
+            <input type="text" class="form-control input-lg" placeholder="Put your address in here" name="" id="">
+            <span class="input-group-btn">
+              <button class="btn btn-warning btn-lg" type="button">HandCrafted</button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<!-- footer  -->
+<footer>
+  crafted with &hearts; in Bangalore by <a href="http://akashmahato.in">akash</a>
+</footer> -->
+
+<router-outlet></router-outlet>
