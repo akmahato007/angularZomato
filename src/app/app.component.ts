@@ -24,8 +24,9 @@ export class AppComponent implements OnInit ,OnDestroy {
   public final_res;
   public nearby_loc =[];
 
-  email: any
+  username: any
   password:any
+  search:any
 
   constructor(public locationService:LocationService, public locationHttpService:LocationHttpService) { 
     console.log("Home component constructor called")
@@ -53,14 +54,30 @@ export class AppComponent implements OnInit ,OnDestroy {
    signIn(){
     // console.log(this.email)
     // console.log(this.password)
-    let a = ( this.locationService.signIn(this.email,this.password)).subscribe(
+     this.locationService.signIn(this.username,this.password).subscribe(
       data => {
         console.log(data)
         return data
       },
-      // error =>{
-      //   console.log(error)
-      // }
+      error =>{
+        // return error 
+        console.log(error)
+      }
+    ) 
+  }
+
+  searchUser(){
+    // console.log(this.email)
+    // console.log(this.password)
+     this.locationService.search(this.search).subscribe(
+      data => {
+        console.log(data)
+        return data
+      },
+      error =>{
+        // return error 
+        console.log(error)
+      }
     ) 
   }
 
