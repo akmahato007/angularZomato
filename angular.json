@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "zomato-app"
+    }
+  },
+  "defaultProject": "zomato-app",
+  "cli": {
+    "analytics": false
+  }
 }

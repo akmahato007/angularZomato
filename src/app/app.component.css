@@ -1,132 +1,32 @@
-
 /* my css code for home */
 
+:root{
+    font-size:20px;
+}
+
 html,
-body,
-.cover{
-    height: 100%;
+body{
+    margin: 0;
+    padding: 0;
 }
 
-.cover{
-    background-image: url("../assets/img/slider-1.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 200px;
-
-    /* making a vertical align to the center */
-    display:table;
+.responsive{
     width: 100%;
-    
-    /*glooomy look on the outside of image*/
-    box-shadow: inset 0 0 100px #000; 
+    margin-top: 50px;
+    max-width:100%;            /*image is made responsive*/
+    height:auto;
 }
 
-
-.cover{
-     /* making background image responsive */
-    width: 100%;
-    height: auto;
+/* adding text to the resposnive logo image */
+.container {
+    position: relative;
+    text-align: center;
+    color: black;
 }
-
 
 .cover-text{
-    text-align: center;
-    /* making a vertical align to the center */
-    display: table-cell;
-    vertical-align: middle;
-
-}
-
-.cover-text h1{
-    text-transform: lowercase;
-    margin: 50px;
-    font-size: 40px;
-    letter-spacing: 10px;
-}
-
-
-.navbar-inverse{
-    background: rgb(130, 136, 106);
-    border: none; 
-}
-
-.testimonials{
-    background: #222;
-}
-
-blockquote{
-    border: none;
-    margin: 0;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-style: italic;
-    font-size: 32px;
-    color:white;
-}
-
-cite{
-    display: block;
-    text-align: right;
-    text-transform: uppercase;
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: normal;
-    font-size:18px ;
-    font-weight:bold;
-    color: rgb(255, 255, 255);
-    margin-top:20px;
-}
-
-section{
-     padding: 90px; /*provides spacing on all sides */
-}
-
-h2{
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin: 0 0 60px;
-}
-
-
-/* sibling selector */
-h2 + p {
-    text-align: center;
-    margin-top: -60px;
-
-
-}
-#nearbyResaturents{
-     background: url("https://www.freepik.com/free-photos-vectors/background");
-    background-size: cover; 
-    text-align: center;
-}
-
-footer{
-    background: #222;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    font-family:Georgia, 'Times New Roman', Times, serif
-
-}
-
-footer a{
-    color:hotpink;
-}
-
-
-
-/* panel heading styles */
-
-/* Media Queries */
-
-/* screen size less tnan 568 px do this styles below */
-@media only screen and (max-width : 568px)  {
-
-    .cover h1{
-        font-size: 40px;
-    }
-    section{
-        padding: 20px;
-    }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

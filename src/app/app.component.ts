@@ -82,7 +82,6 @@ export class AppComponent implements OnInit ,OnDestroy {
   }
 
 
-
   ngOnInit(): void { 
     console.log("ng on init called")
     

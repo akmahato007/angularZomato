@@ -3,7 +3,7 @@ import { HttpClient , HttpHeaders} from '@angular/common/http';
 
 import { ActivatedRoute } from '@angular/router';
 
-import {HttpErrorResponse , HttpParams} from '@angular/common/http';
+  import {HttpErrorResponse , HttpParams} from '@angular/common/http';
 
 
 //RXjs imports
@@ -157,11 +157,12 @@ search(search):Observable<any>{
   let fullUrl = 'https://api.github.com/users/' + search
   
   
-  const params = new HttpParams()
+  const params1 = new HttpParams()
     .set('client_ID', '137d108ac6debf5fb901')
     .set('client_Secret','26992b0e620b10b92d4ad050b0bcb7bcd26002b1')
-    let a =  this.$http.post(fullUrl, params)
-    
+    let a =  this.$http.get(fullUrl, {
+      params: params1
+    })
 
     console.log(a)
     return a
